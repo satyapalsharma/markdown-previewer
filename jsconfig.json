@@ -1,0 +1,64 @@
+```json
+{
+  "compilerOptions": {
+    // Base URL for resolving non-relative module names.
+    // This allows absolute imports from the project root, e.g., `import MyComponent from '@/components/MyComponent'`.
+    "baseUrl": ".",
+    // Specify the JSX factory function to use when compiling JSX to JavaScript.
+    // "preserve" means JSX is emitted as is, to be further transformed by Babel/Next.js.
+    "jsx": "preserve",
+    // Specify ECMAScript target version: 'ES2017' is a common choice for modern web apps,
+    // balancing compatibility with modern features. Next.js handles transpilation for older browsers.
+    "target": "es2017",
+    // Specify module code generation: 'esnext' allows for modern ES module syntax.
+    "module": "esnext",
+    // Enable all strict type-checking options. This is highly recommended for production-quality code.
+    "strict": true,
+    // Disallow 'any' type from being implicitly used. Helps catch potential type-related bugs.
+    "noImplicitAny": true,
+    // Report errors on unused locals. Promotes cleaner code by identifying dead code.
+    "noUnusedLocals": true,
+    // Report errors on unused parameters. Similar to `noUnusedLocals`, encourages clean function signatures.
+    "noUnusedParameters": true,
+    // Report errors on fallthrough cases in switch statement. Prevents common logic errors.
+    "noFallthroughCasesInSwitch": true,
+    // Enable experimental support for decorators. Useful if using libraries that rely on decorators.
+    "experimentalDecorators": true,
+    // Emit design-type metadata for decorated declarations in source. Required for some decorator use cases.
+    "emitDecoratorMetadata": true,
+    // Enable interop between CommonJS and ES Modules. Essential for working with mixed module systems.
+    "esModuleInterop": true,
+    // Allow default imports from modules with no default export. This is a common pattern in React/Next.js.
+    "allowSyntheticDefaultImports": true,
+    // Skip type checking of all declaration files (*.d.ts). Speeds up compilation and avoids issues with external libraries.
+    "skipLibCheck": true,
+    // Ensure all imported module specifiers use consistent casing. Important for cross-platform compatibility.
+    "forceConsistentCasingInFileNames": true,
+    // Enable a full type-checking program for JavaScript files. Provides IDE support and error checking for JS files.
+    "checkJs": true,
+    // Path mapping for module resolution.
+    // This allows using absolute paths like `@/components` instead of long relative paths (e.g., `../../../components`).
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"],
+      "@/styles/*": ["styles/*"]
+      // Example for potential shared modules in a larger microservice context:
+      // If this project were to consume shared utilities or types from a 'shared' package
+      // in a monorepo or a linked dependency, you might add:
+      // "@shared/*": ["../shared/*"]
+    },
+    // Specify module resolution strategy: 'node' is standard for Node.js environments.
+    "moduleResolution": "node",
+    // List of library files to be included in the compilation.
+    // 'dom' for browser APIs, 'dom.iterable' for iterable protocols, 'esnext' for latest ECMAScript features.
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  // Specifies the files to include in the program.
+  // 'next-env.d.ts' is crucial for Next.js's internal types.
+  // '**/*.js' and '**/*.jsx' ensure all JavaScript and JSX files are processed.
+  "include": ["next-env.d.ts", "**/*.js", "**/*.jsx"],
+  // Specifies the files to exclude from the program.
+  // 'node_modules' is standard to prevent processing external dependencies.
+  "exclude": ["node_modules"]
+}
+```
