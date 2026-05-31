@@ -1,0 +1,253 @@
+/*
+ * src/App.css
+ *
+ * Main application styles for the Markdown Previewer.
+ * This file defines global styles, layout for the main application structure,
+ * and common variables used across components.
+ *
+ * Author: Your Name/Company
+ * Date: Current Date
+ */
+
+/* --- CSS Variables for Theming --- */
+:root {
+  --color-background-dark: #282c34; /* Dark background for the app */
+  --color-background-light: #3a404c; /* Slightly lighter background for panels */
+  --color-text-primary: #abb2bf; /* Light grey text */
+  --color-text-secondary: #61afef; /* Accent blue for highlights/links */
+  --color-border: #4b5263; /* Subtle border color */
+  --color-header-bg: #21252b; /* Even darker for header */
+
+  --font-family-primary: 'Fira Code', 'Roboto Mono', monospace; /* Monospaced for code/editor */
+  --font-family-secondary: 'Inter', 'Helvetica Neue', sans-serif; /* Sans-serif for general UI */
+
+  --spacing-unit: 8px;
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+}
+
+/* --- Global Resets and Base Styles --- */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure root elements take full viewport height */
+  overflow: hidden; /* Prevent body scroll, app handles its own scrolling */
+}
+
+body {
+  font-family: var(--font-family-secondary);
+  background-color: var(--color-background-dark);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply box-sizing globally for easier layout management */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* --- Main App Layout --- */
+.App {
+  display: flex;
+  flex-direction: column; /* Stack header and main content vertically */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  overflow: hidden; /* Ensure no overflow from the app itself */
+}
+
+/* --- Header Styling --- */
+.App-header {
+  background-color: var(--color-header-bg);
+  padding: var(--spacing-unit) calc(var(--spacing-unit) * 2);
+  color: var(--color-text-secondary);
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Ensure header stays on top */
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-family: var(--font-family-secondary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* --- Main Content Area (Editor & Previewer) --- */
+.App-main {
+  display: flex; /* Arrange editor and previewer side-by-side */
+  flex-grow: 1; /* Allow main content to take up remaining vertical space */
+  overflow: hidden; /* Hide any overflow from children */
+  gap: var(--spacing-unit); /* Space between editor and previewer */
+  padding: var(--spacing-unit); /* Padding around the main content area */
+}
+
+/* --- Common Panel Styles (for Editor and Previewer) --- */
+.App-panel {
+  flex: 1; /* Each panel takes equal width */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-medium);
+  overflow: hidden; /* Ensure content inside panels respects their boundaries */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.App-panel-header {
+  padding: var(--spacing-unit);
+  background-color: var(--color-border);
+  color: var(--color-text-primary);
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .App-main {
+    flex-direction: column; /* Stack editor and previewer vertically on small screens */
+    overflow-y: auto; /* Allow scrolling for the entire main area */
+    padding: var(--spacing-unit);
+  }
+
+  .App-panel {
+    min-height: 50vh; /* Give each panel at least half the viewport height */
+    flex-basis: auto; /* Allow panels to size based on content/min-height */
+  }
+
+  .App-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- Scrollbar Styling (Webkit browsers) --- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-dark);
+  border-radius: var(--border-radius-small);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-small);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* --- Utility Classes (Optional, but good for consistency) --- */
+.text-center {
+  text-align: center;
+}
+
+.margin-bottom-md {
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+/* --- Markdown Previewer Specific Styles (for rendered output) --- */
+/* These styles ensure the rendered markdown looks good within the preview panel. */
+.markdown-preview h1, .markdown-preview h2, .markdown-preview h3,
+.markdown-preview h4, .markdown-preview h5, .markdown-preview h6 {
+  color: var(--color-text-secondary);
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-family: var(--font-family-secondary);
+  font-weight: 600;
+}
+
+.markdown-preview h1 { font-size: 2em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.3em; }
+.markdown-preview h2 { font-size: 1.75em; border-bottom: 1px solid var(--color-border); padding-bottom: 0.3em; }
+.markdown-preview h3 { font-size: 1.5em; }
+.markdown-preview h4 { font-size: 1.25em; }
+.markdown-preview h5 { font-size: 1.1em; }
+.markdown-preview h6 { font-size: 1em; color: var(--color-text-primary); }
+
+.markdown-preview p {
+  margin-bottom: 1em;
+}
+
+.markdown-preview a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.markdown-preview a:hover {
+  text-decoration: underline;
+}
+
+.markdown-preview code, .markdown-preview pre {
+  font-family: var(--font-family-primary);
+  background-color: rgba(97, 175, 239, 0.1); /* Light blue tint */
+  border-radius: var(--border-radius-small);
+  padding: 0.2em 0.4em;
+  color: var(--color-text-secondary);
+}
+
+.markdown-preview pre {
+  padding: 1em;
+  overflow-x: auto;
+  display: block;
+  white-space: pre-wrap; /* Ensure code wraps */
+  word-break: break-all; /* Break long words */
+  background-color: var(--color-background-dark);
+  border: 1px solid var(--color-border);
+  margin-bottom: 1em;
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid var(--color-text-secondary);
+  padding-left: 1em;
+  margin-left: 0;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+}
+
+.markdown-preview ul, .markdown-preview ol {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.markdown-preview li {
+  margin-bottom: 0.5em;
+}
+
+.markdown-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.markdown-preview th, .markdown-preview td {
+  border: 1px solid var(--color-border);
+  padding: 0.5em;
+  text-align: left;
+}
+
+.markdown-preview th {
+  background-color: var(--color-border);
+  font-weight: bold;
+}
+
+.markdown-preview img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em auto;
+  border-radius: var(--border-radius-small);
+}
+
+.markdown-preview hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2em 0;
+}
